@@ -44,3 +44,12 @@
     git checkout -- <filename>
     ```
 
+* 推送远程库
+
+    ```
+    git remote add origin <地址>
+    git push -u orgin master 第一次
+    git push orgin master 
+    git clone <地址>
+    ```
+
