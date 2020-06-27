@@ -16,6 +16,7 @@ class Solution:
                 j += 1
         return dp[-1]
     
+    
     def numSquares_ga(self, n: int):
         
         def is_divided_by(n, count):
@@ -39,8 +40,65 @@ class Solution:
             if is_divided_by(n, count):
                 return count
     
+    
+    def numSquares_ga_bfs(self, n):
+        """
+            用广度优先(即队列)的方法来计算
+        """
+        square_nums = [i * i for i in range(1, int(n**0.5)+1)]
+    
+        level = 0
+        queue = {n}
+        while queue:
+            level += 1
+            # 用set以消除冗余
+            next_queue = set()
+            # 计算下一层的队列
+            for r in queue:
+                for num in square_nums:    
+                    if r == num:
+                        return level
+                    elif r < num:
+                        break
+                    else:
+                        next_queue.add(r - num)
+            queue = next_queue
+        return level
+    
+    
+    
+    def isSquare(self, n: int):
+        """
+            是否是平方数返回bool类型
+        """
+        sq = int(math.sqrt(n))
+        return sq*sq == n
+
+    def numSquares_math(self, n: int):
+        """
+            四平方和定理(Lagrange's four-square theorem)
+        """
+        # n == 4 ** k * (8 * m + 7)
+        while (n & 3) == 0:
+            n >>= 2      # reducing the 4^k factor from number
+        if (n & 7) == 7: # mod 8
+            return 4
+
+        if self.isSquare(n):
+            return 1
+        
+        # check if the number can be decomposed into sum of two squares
+        for i in range(1, int(n**(0.5)) + 1):
+            if self.isSquare(n - i*i):
+                return 2
+        # bottom case from the three-square theorem
+        return 3
+    
+    
+    
 if __name__ == "__main__":
     x = int(input("input number: "))
     solution = Solution()
     print(solution.numSquares_dp(x))
-    print(solution.numSquares_ga(x))    
+    print(solution.numSquares_ga(x))
+    print(solution.numSquares_ga_bfs(x))    
