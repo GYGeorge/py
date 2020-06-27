@@ -79,9 +79,9 @@ class Solution:
             四平方和定理(Lagrange's four-square theorem)
         """
         # n == 4 ** k * (8 * m + 7)
-        while (n & 3) == 0:
+        while (n & 3) == 0: #判断n是否是4的倍数
             n >>= 2      # reducing the 4^k factor from number
-        if (n & 7) == 7: # mod 8
+        if (n & 7) == 7: # n-7是否是8的倍数
             return 4
 
         if self.isSquare(n):
