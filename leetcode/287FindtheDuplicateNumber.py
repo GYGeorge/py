@@ -12,7 +12,7 @@ class Solution:
         hare = tortoise = nums[0]
         while True:
             tortoise = nums[tortoise]
-            hare = nums[nums[tortoise]]
+            hare = nums[nums[hare]]
             if hare == tortoise:
                 break
         hare = nums[0]
@@ -22,6 +22,6 @@ class Solution:
         return hare
     
 if __name__ == "__main__":
-    array = [1,3,4,2,2]
+    array = [3,1,3,4,2]
     so = Solution()
     print(so.FindtheDuplicateNumber(array))
