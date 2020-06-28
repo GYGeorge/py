@@ -109,6 +109,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                     self.cur.close()
                     self.conn.close()
                     self.close()
+                    return
                 else: 
                     QtWidgets.QMessageBox.information(self,"Information",  
                                 self.tr("密码错误"))
@@ -128,7 +129,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                     self.cur.close()
                     self.conn.close()
                     self.close()
-
+                    return
                 else: 
                     QtWidgets.QMessageBox.information(self,"Information",  
                                 self.tr("密码错误"))
