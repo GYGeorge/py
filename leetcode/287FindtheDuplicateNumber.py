@@ -1,3 +1,9 @@
+# /*
+#  * @Author: gaoyuan 
+#  * @Date: 2020-07-01 16:59:57 
+#  * @Last Modified by:   gaoyuan 
+#  * @Last Modified time: 2020-07-01 16:59:57 
+#  */
 class Solution:
     """
         Given an array nums containing n + 1 integers 
@@ -5,6 +11,7 @@ class Solution:
         prove that at least one duplicate number must exist. 
         Assume that there is only one duplicate number, find the duplicate one.
     """
+
     def FindtheDuplicateNumber(self, nums):
         """
             环检测算法Floyd's the Tortoise and Hare
@@ -20,8 +27,9 @@ class Solution:
             hare = nums[hare]
             tortoise = nums[tortoise]
         return hare
-    
+
+
 if __name__ == "__main__":
-    array = [3,1,3,4,2]
+    array = [3, 1, 3, 4, 2]
     so = Solution()
     print(so.FindtheDuplicateNumber(array))
