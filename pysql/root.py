@@ -1,3 +1,10 @@
+# /*
+#  * @Author: gaoyuan
+#  * @Date: 2020-07-03 07:50:40
+#  * @Last Modified by:   gaoyuan
+#  * @Last Modified time: 2020-07-03 07:50:40
+#  */
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'root.ui'
@@ -10,14 +17,15 @@ import pymysql
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class MyWindowROOT(QtWidgets.QMainWindow):
-    
+
     def __init__(self):
         super().__init__()
-        
+
     def startUi(self):
-    
-        self.conn = pymysql.connect(host='localhost',user='root',
+
+        self.conn = pymysql.connect(host='localhost', user='root',
                                     port=3306, passwd='496532343',
                                     db='curriculum'
                                     )
@@ -129,14 +137,17 @@ class MyWindowROOT(QtWidgets.QMainWindow):
         self.label_root.setText(_translate("MainWindow", "ROOT"))
         self.label_sno.setText(_translate("MainWindow", "学号"))
         self.pushButton_Ssearch.setText(_translate("MainWindow", "查找"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "查看学生信息"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(
+            self.tab_2), _translate("MainWindow", "查看学生信息"))
         self.label_tno.setText(_translate("MainWindow", "职工号"))
         self.pushButton_Tsearch.setText(_translate("MainWindow", "查找"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "查看教师信息"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(
+            self.tab), _translate("MainWindow", "查看教师信息"))
         self.label_inputsql.setText(_translate("MainWindow", "输入sql"))
         self.label_result.setText(_translate("MainWindow", "结果"))
         self.pushButtonsql.setText(_translate("MainWindow", "查询"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "sql语句"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(
+            self.tab_3), _translate("MainWindow", "sql语句"))
 
     def buttonS(self):
         sno = self.lineEdit_sno.text()
@@ -148,13 +159,13 @@ class MyWindowROOT(QtWidgets.QMainWindow):
             for i in back:
                 self.textBrowser_S.append(str(i))
         else:
-            QtWidgets.QMessageBox.information(self,"Information",  
-                            self.tr("输入错误")) 
-                
+            QtWidgets.QMessageBox.information(self, "Information",
+                                              self.tr("输入错误"))
+
     def buttonT(self):
         tno = self.lineEdit_tno.text()
         sqlstr = "SELECT t.Tno,c.Cname,t.Tname FROM t,c WHERE  t.Tno = '%s'" % tno
-    
+
         self.cur.execute(sqlstr)
         self.textBrowser_T.clear()
         back = self.cur.fetchone()
@@ -162,10 +173,9 @@ class MyWindowROOT(QtWidgets.QMainWindow):
             for i in back:
                 self.textBrowser_T.append(str(i))
         else:
-            QtWidgets.QMessageBox.information(self,"Information",  
-                            self.tr("输入错误")) 
+            QtWidgets.QMessageBox.information(self, "Information",
+                                              self.tr("输入错误"))
 
-            
     def buttonSQL(self):
         sqlstr = self.textEdit_inputsql.toPlainText()
         try:
@@ -173,7 +183,7 @@ class MyWindowROOT(QtWidgets.QMainWindow):
             for i in self.cur.fetchone():
                 self.textBrowser_result.append(str(i))
             self.conn.commit()
-        except pymysql.Error as e: 
+        except pymysql.Error as e:
             self.textEdit_inputsql.clear()
             self.textBrowser_result.setText(str(e))
             # QtWidgets.QMessageBox.information(self,"Information",self.tr("两次密码不一致!"))
@@ -182,7 +192,7 @@ class MyWindowROOT(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     myshow = MyWindowROOT()
-    
+
     myshow.startUi()
     myshow.show()
     sys.exit(app.exec_())

@@ -1,3 +1,10 @@
+# /*
+#  * @Author: gaoyuan 
+#  * @Date: 2020-07-03 07:51:21 
+#  * @Last Modified by:   gaoyuan 
+#  * @Last Modified time: 2020-07-03 07:51:21 
+#  */
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 't.ui'
@@ -9,10 +16,12 @@ import sys
 import pymysql
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class MyWindowTeacher(QtWidgets.QMainWindow, QtWidgets.QTableWidget):
-    
+
     tno = ""
     cno = ""
+
     def __init__(self):
         super().__init__()
 
@@ -27,16 +36,14 @@ class MyWindowTeacher(QtWidgets.QMainWindow, QtWidgets.QTableWidget):
         self.tno = ip
         self.setupUi(self)
         self.getcno()
-    
+
     def setupUi(self, MainWindow):
-        
-        self.conn = pymysql.connect(host='localhost',user='root',
+
+        self.conn = pymysql.connect(host='localhost', user='root',
                                     port=3306, passwd='496532343',
                                     db='curriculum'
                                     )
         self.cur = self.conn.cursor()
-        
-
 
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -51,25 +58,26 @@ class MyWindowTeacher(QtWidgets.QMainWindow, QtWidgets.QTableWidget):
         self.label_max.setGeometry(QtCore.QRect(20, 20, 60, 31))
         self.label_max.setObjectName("label_max")
         self.max = QtWidgets.QTextBrowser(self.tab)
-        self.max.setGeometry(QtCore.QRect(80,20,100,31))
+        self.max.setGeometry(QtCore.QRect(80, 20, 100, 31))
         self.max.setObjectName("max")
         self.label_min = QtWidgets.QLabel(self.tab)
         self.label_min.setGeometry(QtCore.QRect(200, 20, 60, 31))
-        self.label_min.setObjectName("label_min")       
+        self.label_min.setObjectName("label_min")
         self.min = QtWidgets.QTextBrowser(self.tab)
-        self.min.setGeometry(QtCore.QRect(260,20,100,31))
+        self.min.setGeometry(QtCore.QRect(260, 20, 100, 31))
         self.min.setObjectName("min")
         self.label_avg = QtWidgets.QLabel(self.tab)
         self.label_avg.setGeometry(QtCore.QRect(380, 20, 60, 31))
-        self.label_avg.setObjectName("label_avg")       
+        self.label_avg.setObjectName("label_avg")
         self.avg = QtWidgets.QTextBrowser(self.tab)
-        self.avg.setGeometry(QtCore.QRect(450,20,100,31))
+        self.avg.setGeometry(QtCore.QRect(450, 20, 100, 31))
         self.avg.setObjectName("avg")
-        
+
         self.searchallbutton = QtWidgets.QPushButton(self.tab)
-        self.searchallbutton.setGeometry(QtCore.QRect(580,20,90,31))
+        self.searchallbutton.setGeometry(QtCore.QRect(580, 20, 90, 31))
         self.result_out = QtWidgets.QTableWidget(self.tab)
-        self.result_out.setEditTriggers( QtWidgets.QAbstractItemView.NoEditTriggers)  # 不可编辑表格
+        self.result_out.setEditTriggers(
+            QtWidgets.QAbstractItemView.NoEditTriggers)  # 不可编辑表格
         self.result_out.setGeometry(QtCore.QRect(20, 100, 650, 201))
         self.result_out.setObjectName("result_out")
         self.result_out.setColumnCount(2)
@@ -188,50 +196,54 @@ class MyWindowTeacher(QtWidgets.QMainWindow, QtWidgets.QTableWidget):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_max.setText(_translate("MainWindow","最高分"))
-        self.label_min.setText(_translate("MainWindow","最低分"))
-        self.searchallbutton.setText(_translate("MainWindow","查询"))
-        self.tab_4.setTabText(self.tab_4.indexOf(self.tab), _translate("MainWindow", "查看成绩"))
+        self.label_max.setText(_translate("MainWindow", "最高分"))
+        self.label_min.setText(_translate("MainWindow", "最低分"))
+        self.searchallbutton.setText(_translate("MainWindow", "查询"))
+        self.tab_4.setTabText(self.tab_4.indexOf(
+            self.tab), _translate("MainWindow", "查看成绩"))
         self.label_sno2.setText(_translate("MainWindow", "学号"))
         self.label_7.setText(_translate("MainWindow", "成绩"))
         self.label_8.setText(_translate("MainWindow", "修改成绩"))
         self.changegradebutton.setText(_translate("MainWindow", "确认修改/添加"))
         self.showgradebutton.setText(_translate("MainWindow", "显示成绩"))
-        self.tab_4.setTabText(self.tab_4.indexOf(self.tab_2), _translate("MainWindow", "修改成绩"))
+        self.tab_4.setTabText(self.tab_4.indexOf(
+            self.tab_2), _translate("MainWindow", "修改成绩"))
         self.label_4.setText(_translate("MainWindow", "原密码"))
         self.label_5.setText(_translate("MainWindow", "修改密码"))
         self.label_6.setText(_translate("MainWindow", "确认密码"))
         self.changePWbutton.setText(_translate("MainWindow", "确认修改"))
-        self.tab_4.setTabText(self.tab_4.indexOf(self.tab_3), _translate("MainWindow", "修改密码"))
+        self.tab_4.setTabText(self.tab_4.indexOf(
+            self.tab_3), _translate("MainWindow", "修改密码"))
         self.label_tno.setText(_translate("MainWindow", "职工号"))
         self.label_tname.setText(_translate("MainWindow", "姓名"))
         self.label_class.setText(_translate("MainWindow", "课程"))
         self.label_avg.setText(_translate("MainWindow", "平均成绩"))
 
-
     def buttonshowgrade(self):
         sno = self.edit_sno2.text()
-        if sno ==  "":
-            QtWidgets.QMessageBox.information(self,"Information",self.tr("请输入学号"))
+        if sno == "":
+            QtWidgets.QMessageBox.information(
+                self, "Information", self.tr("请输入学号"))
             return
-        selectstr = "SELECT Grade FROM sc WHERE sc.Cno = '%s' AND sc.Sno = '%s'" % (self.cno, sno)
+        selectstr = "SELECT Grade FROM sc WHERE sc.Cno = '%s' AND sc.Sno = '%s'" % (
+            self.cno, sno)
         self.cur.execute(selectstr)
         for i in self.cur:
             for j in i:
                 self.textshowgrade.setText(str(j))
-    
 
     def buttonupdategrade(self):
         sno = self.edit_sno2.text()
-        if self.edit_changegrade.text() == "" :
-            QtWidgets.QMessageBox.information(self,"Information",self.tr("请输入成绩"))
+        if self.edit_changegrade.text() == "":
+            QtWidgets.QMessageBox.information(
+                self, "Information", self.tr("请输入成绩"))
         else:
-            updatestr = "UPDATE sc SET Grade = '%d' WHERE Cno = '%s' AND Sno = '%s' " % (int(self.edit_changegrade.text()), self.cno, sno)
+            updatestr = "UPDATE sc SET Grade = '%d' WHERE Cno = '%s' AND Sno = '%s' " % (
+                int(self.edit_changegrade.text()), self.cno, sno)
             self.cur.execute(updatestr)
             self.conn.commit()
         self.edit_changegrade.clear()
         self.textshowgrade.clear()
-
 
     def buttoncheckall(self):
         maxstr = "SELECT MAX(Grade) FROM sc WHERE Cno = '%s'" % self.cno
@@ -253,7 +265,7 @@ class MyWindowTeacher(QtWidgets.QMainWindow, QtWidgets.QTableWidget):
         self.cur.execute(countstr)
         for i in self.cur:
             for j in i:
-                self.result_out.setRowCount(int(j))  
+                self.result_out.setRowCount(int(j))
         allstr = "SELECT Sno,Grade FROM sc WHERE Cno = '%s'" % self.cno
         self.cur.execute(allstr)
         k = 0
@@ -267,33 +279,38 @@ class MyWindowTeacher(QtWidgets.QMainWindow, QtWidgets.QTableWidget):
                 w += 1
             k += 1
 
-
     def buttonchangePW(self):
         if self.changePW.text() == self.confirmPW.text():
             pw = self.confirmPW.text()
-            sqlstr = "select * from t where Tno = '%s' and Tpasswd = '%s'" % (self.tno, self.oriPW.text()) 
+            sqlstr = "select * from t where Tno = '%s' and Tpasswd = '%s'" % (
+                self.tno, self.oriPW.text())
             self.cur.execute(sqlstr)
             if self.cur.fetchone():
-                sqlstr = " update t set Tpasswd = '%s' where Tno = '%s'" % (pw, self.tno)
+                sqlstr = " update t set Tpasswd = '%s' where Tno = '%s'" % (
+                    pw, self.tno)
                 self.cur.execute(sqlstr)
                 self.conn.commit()
-                sqlcheck = "select * from t where Tno = '%s' and Tpasswd = '%s'" % (self.tno, pw)
+                sqlcheck = "select * from t where Tno = '%s' and Tpasswd = '%s'" % (
+                    self.tno, pw)
                 self.cur.execute(sqlcheck)
                 if self.cur.fetchone():
                     self.confirmPW.clear()
                     self.changePW.clear()
                     self.oriPW.clear()
-                    QtWidgets.QMessageBox.information(self,"Information",self.tr("修改成功"))
+                    QtWidgets.QMessageBox.information(
+                        self, "Information", self.tr("修改成功"))
             else:
                 self.confirmPW.clear()
                 self.changePW.clear()
                 self.oriPW.clear()
-                QtWidgets.QMessageBox.information(self,"Information",self.tr("密码错误!"))
+                QtWidgets.QMessageBox.information(
+                    self, "Information", self.tr("密码错误!"))
         else:
             self.confirmPW.clear()
             self.changePW.clear()
             self.oriPW.clear()
-            QtWidgets.QMessageBox.information(self,"Information",self.tr("两次密码不一致!"))
+            QtWidgets.QMessageBox.information(
+                self, "Information", self.tr("两次密码不一致!"))
 
 
 if __name__ == "__main__":

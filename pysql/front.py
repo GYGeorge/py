@@ -1,3 +1,10 @@
+# /*
+#  * @Author: gaoyuan 
+#  * @Date: 2020-07-03 07:51:52 
+#  * @Last Modified by:   gaoyuan 
+#  * @Last Modified time: 2020-07-03 07:51:52 
+#  */
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'front.ui'
@@ -12,12 +19,16 @@ from s_ui import *
 from t_ui import *
 from root import *
 import pymysql
+
+
 class Ui_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
-        super(Ui_MainWindow,self).__init__()
+        super(Ui_MainWindow, self).__init__()
         self.setupUi(self)
+
     def setupUi(self, MainWindow):
-        self.conn = pymysql.connect(host='localhost',user='root',port=3306,password='496532343',db='curriculum')
+        self.conn = pymysql.connect(
+            host='localhost', user='root', port=3306, password='496532343', db='curriculum')
         self.cur = self.conn.cursor()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(432, 403)
@@ -40,8 +51,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_2.setObjectName("label_2")
         self.label.setFrameShape(QtWidgets.QFrame.Box)
         self.label_2.setFrameShape(QtWidgets.QFrame.Box)
-        
-        
+
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(120, 260, 141, 41))
         self.pushButton.setObjectName("pushButton")
@@ -60,22 +70,22 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        font = QtGui.QFont() 
-        #字体
+        font = QtGui.QFont()
+        # 字体
         font.setFamily('仿宋')
-        #加粗
-        font.setBold(True) 
-        #大小
-        font.setPointSize(10) 
-        font.setWeight(90) 
-        self.label.setFont(font) 
+        # 加粗
+        font.setBold(True)
+        # 大小
+        font.setPointSize(10)
+        font.setWeight(90)
+        self.label.setFont(font)
         self.label.setLineWidth(0)
         self.label.setMidLineWidth(0)
-        self.label.setText("<font color=%s>%s</font>" %('#000000', "用户名")) 
-        self.label_2.setFont(font) 
+        self.label.setText("<font color=%s>%s</font>" % ('#000000', "用户名"))
+        self.label_2.setFont(font)
         self.label_2.setLineWidth(0)
         self.label_2.setMidLineWidth(0)
-        self.label_2.setText("<font color=%s>%s</font>" %('#000000', "密码"))
+        self.label_2.setText("<font color=%s>%s</font>" % ('#000000', "密码"))
         # self.pushButton.setFont(font)
         # self.checkBox.setFont(font)
         # self.checkBox_2.setFont(font)
@@ -99,9 +109,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         passwd = self.lineEdit_2.text()
         if self.checkBox_2.isChecked():
             sqlstrStudent = "select * from s where Sno = '%s'" % no
-            self.cur.execute(sqlstrStudent) 
+            self.cur.execute(sqlstrStudent)
             if self.cur.fetchone():
-                sqlstrStudent = "select * from s where Sno = '%s' and passwd = '%s'" % (no, passwd)
+                sqlstrStudent = "select * from s where Sno = '%s' and passwd = '%s'" % (
+                    no, passwd)
                 self.cur.execute(sqlstrStudent)
                 if self.cur.fetchone():
                     mywindow.setsno(no)
@@ -110,18 +121,19 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                     self.conn.close()
                     self.close()
                     return
-                else: 
-                    QtWidgets.QMessageBox.information(self,"Information",  
-                                self.tr("密码错误"))
+                else:
+                    QtWidgets.QMessageBox.information(self, "Information",
+                                                      self.tr("密码错误"))
             else:
-                QtWidgets.QMessageBox.information(self,"Information",  
-                            self.tr("用户不存在"))
+                QtWidgets.QMessageBox.information(self, "Information",
+                                                  self.tr("用户不存在"))
 
         if self.checkBox.isChecked():
             sqlstrTeacher = "select * from t where Tno = '%s'" % no
-            self.cur.execute(sqlstrTeacher) 
+            self.cur.execute(sqlstrTeacher)
             if self.cur.fetchone():
-                sqlstrT = "select * from t where Tno = '%s' and Tpasswd = '%s'" % (no, passwd)
+                sqlstrT = "select * from t where Tno = '%s' and Tpasswd = '%s'" % (
+                    no, passwd)
                 self.cur.execute(sqlstrT)
                 if self.cur.fetchone():
                     mywindowT.settno(no)
@@ -130,13 +142,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                     self.conn.close()
                     self.close()
                     return
-                else: 
-                    QtWidgets.QMessageBox.information(self,"Information",  
-                                self.tr("密码错误"))
+                else:
+                    QtWidgets.QMessageBox.information(self, "Information",
+                                                      self.tr("密码错误"))
             else:
-                QtWidgets.QMessageBox.information(self,"Information",  
-                            self.tr("用户不存在")) 
-        
+                QtWidgets.QMessageBox.information(self, "Information",
+                                                  self.tr("用户不存在"))
+
         if no == "root":
             if passwd == "abc":
                 mywindowRoot.startUi()
@@ -145,15 +157,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 self.conn.close()
                 self.close()
             else:
-                QtWidgets.QMessageBox.information(self,"Information",  
-                            self.tr("请选择用户")) 
+                QtWidgets.QMessageBox.information(self, "Information",
+                                                  self.tr("请选择用户"))
         else:
-            QtWidgets.QMessageBox.information(self,"Information",  
-                            self.tr("请输入学号或工号")) 
+            QtWidgets.QMessageBox.information(self, "Information",
+                                              self.tr("请输入学号或工号"))
 
-            
-            
-        
     def returnno(self):
         return self.lineEdit.text()
 
