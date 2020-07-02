@@ -48,8 +48,8 @@
 
     ```
     git remote add origin <地址>
-    git push -u orgin master   第一次
-    git push orgin master 
+    git push -u origin master   第一次
+    git push origin master 
     git clone <地址> 下载
     ```
 
