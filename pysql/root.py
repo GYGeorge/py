@@ -145,7 +145,7 @@ class MyWindowROOT(QtWidgets.QMainWindow):
             self.tab), _translate("MainWindow", "查看教师信息"))
         self.label_inputsql.setText(_translate("MainWindow", "输入sql"))
         self.label_result.setText(_translate("MainWindow", "结果"))
-        self.pushButtonsql.setText(_translate("MainWindow", "查询"))
+        self.pushButtonsql.setText(_translate("MainWindow", "提交"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(
             self.tab_3), _translate("MainWindow", "sql语句"))
 
